@@ -24,11 +24,20 @@ With AddInReloader, this changes to:
  
 ![Reloader Screenshot](./screenshot1.png)
 
+## Other features
+
+There are also separate Unload and Load buttons for when you can't Build due to Office holding an active reference to your Add-In. AddInReloader tells you the current status of the currently selected Add-In.
+
 ## Setup
 
 Download and build in VS 2010.
 
 This will make it available to your Excel instance, but funnily enough, you have to manually reload the Add-In on first time use; follow the procedure from "The old way" above.
+
+
+## Credits
+
+Icons by [Yusuke Kamiyamane](http://p.yusukekamiyamane.com/). Licensed under a Creative Commons Attribution 3.0 License.
 
 ## License
 

@@ -36,10 +36,15 @@
         {
             this.tab1 = this.Factory.CreateRibbonTab();
             this.reloaderGroup = this.Factory.CreateRibbonGroup();
-            this.reloadButton = this.Factory.CreateRibbonButton();
             this.addinDropdown = this.Factory.CreateRibbonDropDown();
+            this.statusLabel = this.Factory.CreateRibbonLabel();
+            this.buttonGroup1 = this.Factory.CreateRibbonButtonGroup();
+            this.reloadButton = this.Factory.CreateRibbonButton();
+            this.unloadButton = this.Factory.CreateRibbonButton();
+            this.loadButton = this.Factory.CreateRibbonButton();
             this.tab1.SuspendLayout();
             this.reloaderGroup.SuspendLayout();
+            this.buttonGroup1.SuspendLayout();
             // 
             // tab1
             // 
@@ -51,20 +56,52 @@
             // reloaderGroup
             // 
             this.reloaderGroup.Items.Add(this.addinDropdown);
-            this.reloaderGroup.Items.Add(this.reloadButton);
+            this.reloaderGroup.Items.Add(this.statusLabel);
+            this.reloaderGroup.Items.Add(this.buttonGroup1);
             this.reloaderGroup.Label = "Reloader";
             this.reloaderGroup.Name = "reloaderGroup";
-            // 
-            // reloadButton
-            // 
-            this.reloadButton.Label = "Reload";
-            this.reloadButton.Name = "reloadButton";
-            this.reloadButton.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.reloadButton_Click);
             // 
             // addinDropdown
             // 
             this.addinDropdown.Label = "Add-In";
             this.addinDropdown.Name = "addinDropdown";
+            this.addinDropdown.SelectionChanged += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.addinDropdown_SelectionChanged);
+            // 
+            // statusLabel
+            // 
+            this.statusLabel.Label = "Status: ";
+            this.statusLabel.Name = "statusLabel";
+            // 
+            // buttonGroup1
+            // 
+            this.buttonGroup1.Items.Add(this.reloadButton);
+            this.buttonGroup1.Items.Add(this.unloadButton);
+            this.buttonGroup1.Items.Add(this.loadButton);
+            this.buttonGroup1.Name = "buttonGroup1";
+            // 
+            // reloadButton
+            // 
+            this.reloadButton.Image = global::AddInReloader.Properties.Resources.refresh;
+            this.reloadButton.Label = "Reload";
+            this.reloadButton.Name = "reloadButton";
+            this.reloadButton.ShowImage = true;
+            this.reloadButton.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.reloadButton_Click);
+            // 
+            // unloadButton
+            // 
+            this.unloadButton.Image = global::AddInReloader.Properties.Resources.unload;
+            this.unloadButton.Label = "Unload";
+            this.unloadButton.Name = "unloadButton";
+            this.unloadButton.ShowImage = true;
+            this.unloadButton.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.unloadButton_Click);
+            // 
+            // loadButton
+            // 
+            this.loadButton.Image = global::AddInReloader.Properties.Resources.load;
+            this.loadButton.Label = "Load";
+            this.loadButton.Name = "loadButton";
+            this.loadButton.ShowImage = true;
+            this.loadButton.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.loadButton_Click);
             // 
             // AddInReloaderRibbon
             // 
@@ -76,6 +113,8 @@
             this.tab1.PerformLayout();
             this.reloaderGroup.ResumeLayout(false);
             this.reloaderGroup.PerformLayout();
+            this.buttonGroup1.ResumeLayout(false);
+            this.buttonGroup1.PerformLayout();
 
         }
 
@@ -85,6 +124,10 @@
         internal Microsoft.Office.Tools.Ribbon.RibbonGroup reloaderGroup;
         internal Microsoft.Office.Tools.Ribbon.RibbonButton reloadButton;
         internal Microsoft.Office.Tools.Ribbon.RibbonDropDown addinDropdown;
+        internal Microsoft.Office.Tools.Ribbon.RibbonButtonGroup buttonGroup1;
+        internal Microsoft.Office.Tools.Ribbon.RibbonButton unloadButton;
+        internal Microsoft.Office.Tools.Ribbon.RibbonButton loadButton;
+        internal Microsoft.Office.Tools.Ribbon.RibbonLabel statusLabel;
     }
 
     partial class ThisRibbonCollection

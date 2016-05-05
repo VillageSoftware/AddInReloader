@@ -13,6 +13,14 @@ namespace AddInReloader
     {
         private Excel.Application application;
 
+        private COMAddIn SelectedAddIn
+        {
+            get
+            {
+                return (COMAddIn)addinDropdown.SelectedItem.Tag;
+            }
+        }
+
         private void AddInReloaderRibbon_Load(object sender, RibbonUIEventArgs e)
         {
             application = Globals.ThisAddIn.Application;
@@ -30,19 +38,61 @@ namespace AddInReloader
                 addinDropdown.Items.Add(item);
 
             }
+
+            SetStatus();
+        }
+
+        private void SetStatus()
+        {
+            string statusWord = SelectedAddIn.Connect 
+                ? "Enabled" 
+                : "Disabled";
+
+            statusLabel.Label = String.Format("{0}: {1}", SelectedAddIn.ProgId, statusWord);
+        }
+
+        private void Disconnect()
+        {
+            SelectedAddIn.Connect = false;
+            SetStatus();
+        }
+
+        private void Connect()
+        {
+            SelectedAddIn.Connect = true;
+            SetStatus();
         }
 
         private void reloadButton_Click(object sender, RibbonControlEventArgs e)
         {
-
-            var selectedAddIn = (COMAddIn)addinDropdown.SelectedItem.Tag;
-
-            if (selectedAddIn != null)
+            if (SelectedAddIn != null)
             {
-                selectedAddIn.Connect = false;
+                Disconnect();
                 Thread.Sleep(100);
-                selectedAddIn.Connect = true;
+                Connect();
             }
         }
+
+        private void unloadButton_Click(object sender, RibbonControlEventArgs e)
+        {
+            if (SelectedAddIn != null)
+            {
+                Disconnect();
+            }
+        }
+
+        private void loadButton_Click(object sender, RibbonControlEventArgs e)
+        {
+            if (SelectedAddIn != null)
+            {
+                Connect();
+            }
+        }
+
+        private void addinDropdown_SelectionChanged(object sender, RibbonControlEventArgs e)
+        {
+            SetStatus();
+        }
+
     }
 }
