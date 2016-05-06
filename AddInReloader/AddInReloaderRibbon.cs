@@ -6,6 +6,7 @@ using Microsoft.Office.Tools.Ribbon;
 using Microsoft.Office.Core;
 using Excel = Microsoft.Office.Interop.Excel;
 using System.Threading;
+using System.Runtime.InteropServices;
 
 namespace AddInReloader
 {
@@ -23,7 +24,8 @@ namespace AddInReloader
 
         private void AddInReloaderRibbon_Load(object sender, RibbonUIEventArgs e)
         {
-            application = Globals.ThisAddIn.Application;
+            var me = Globals.ThisAddIn;
+            application = me.Application;
 
             foreach (COMAddIn addin in application.COMAddIns)
             {
@@ -36,7 +38,6 @@ namespace AddInReloader
                 item.Tag = addin;
 
                 addinDropdown.Items.Add(item);
-
             }
 
             SetStatus();
@@ -92,6 +93,13 @@ namespace AddInReloader
         private void addinDropdown_SelectionChanged(object sender, RibbonControlEventArgs e)
         {
             SetStatus();
+        }
+
+        private void AddInReloaderRibbon_Close(object sender, EventArgs e)
+        {
+            Marshal.ReleaseComObject(application);
+            GC.Collect();
+            GC.WaitForPendingFinalizers();
         }
 
     }

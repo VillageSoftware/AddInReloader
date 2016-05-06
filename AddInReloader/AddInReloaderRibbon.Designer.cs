@@ -108,6 +108,7 @@
             this.Name = "AddInReloaderRibbon";
             this.RibbonType = "Microsoft.Excel.Workbook";
             this.Tabs.Add(this.tab1);
+            this.Close += new System.EventHandler(this.AddInReloaderRibbon_Close);
             this.Load += new Microsoft.Office.Tools.Ribbon.RibbonUIEventHandler(this.AddInReloaderRibbon_Load);
             this.tab1.ResumeLayout(false);
             this.tab1.PerformLayout();
